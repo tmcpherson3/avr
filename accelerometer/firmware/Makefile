@@ -18,7 +18,7 @@
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
 
 DEVICE     = atmega328p
-CLOCK      = 16000000 # arduino 
+CLOCK      = 16000000
 PROGRAMMER = #-c stk500v2 -P avrdoper
 OBJECTS    = main.o
 FUSES      = -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m -U efuse:w:0x05:m # arduino defaults
@@ -54,17 +54,17 @@ COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 # symbolic targets:
 all:	main.hex
 
-.c.o:
+%.o: %.c
 	$(COMPILE) -c $< -o $@
 
-.S.o:
+%.o: %.S
 	$(COMPILE) -x assembler-with-cpp -c $< -o $@
 # "-x assembler-with-cpp" should not be necessary since this is the default
 # file type for the .S (with capital S) extension. However, upper case
 # characters are not always preserved on Windows. To ensure WinAVR
 # compatibility define the file type manually.
 
-.c.s:
+%.s: %.c
 	$(COMPILE) -S $< -o $@
 
 flash:	all
