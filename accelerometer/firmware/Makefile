@@ -1,6 +1,6 @@
 # Name: Makefile
-# Author: <insert your name here>
-# Copyright: <insert your copyright message here>
+# Author: Timothy McPherson
+# Copyright: 
 # License: <insert your license reference here>
 
 # This is a prototype Makefile. Modify it according to your needs.
@@ -23,11 +23,8 @@ PROGRAMMER = #-c stk500v2 -P avrdoper
 
 FUSES      = -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m -U efuse:w:0x05:m # arduino defaults
 
-#ARDDIR     = /Users/timothymcpherson/Documents/arduino/Arduino
-#ARDCOREDIR = $(ARDDIR)/hardware/arduino/avr/cores/arduino
 ARDCOREDIR = /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/
 
-#CPP_SOURCE_FILES = $(ARDCOREDIR)/HardwareSerial.cpp $(ARDCOREDIR)/Stream.cpp $(ARDCOREDIR)/Print.cpp $(ARDCOREDIR)/WString.cpp 
 ARDCORE_SOURCE_CPP = $(filter-out $(ARDCOREDIR)/main.cpp, $(wildcard $(ARDCOREDIR)/*.cpp))
 ARDCORE_SOURCE_C = $(wildcard $(ARDCOREDIR)/*.c)
 ARDCORE_SOURCE_ASM = $(wildcard $(ARDCOREDIR)/*.S)
