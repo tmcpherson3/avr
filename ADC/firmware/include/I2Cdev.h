@@ -50,7 +50,7 @@ THE SOFTWARE.
 // I2C interface implementation setting
 // -----------------------------------------------------------------------------
 #ifndef I2CDEV_IMPLEMENTATION
-#define I2CDEV_IMPLEMENTATION       I2CDEV_ARDUINO_WIRE
+#define I2CDEV_IMPLEMENTATION       I2CDEV_I2CMASTER_LIBRARY
 //#define I2CDEV_IMPLEMENTATION       I2CDEV_BUILTIN_FASTWIRE
 #endif // I2CDEV_IMPLEMENTATION
 

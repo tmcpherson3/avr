@@ -34,8 +34,8 @@ void dmpDataReady()
 
 int main(void)
 {
-    // Arduino init function. Libraries Serial and Wire depend on this being called. It enables interrupts and sets a bunch of timer configuration registers.
-    init();
+    // Enable Interrupts
+    sei();
     
     // Begin Fastwire (I2C driver)
     //Fastwire::setup(400, true);
@@ -50,7 +50,7 @@ int main(void)
 
     Serial.println("Testing device connections...");
     Serial.println(mpu.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
-
+    
     devStatus = mpu.dmpInitialize();
 
     // supply your gyro offsets here, scaled for min sensitivity
@@ -117,6 +117,9 @@ int main(void)
             Serial.print("\t");
             Serial.println(ypr[2] * 180/M_PI);
 	
+
+	    blinkState = !blinkState;
+	    digitalWrite(LED_PIN, blinkState);
 	   }
 	    
       }

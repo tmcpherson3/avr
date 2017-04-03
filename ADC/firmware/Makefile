@@ -17,34 +17,28 @@
 #                   default_serial = "avrdoper"
 # FUSES ........ Parameters for avrdude to flash the fuses appropriately.
 
-COMPILER = /Applications/Arduino.app/Contents/Java/hardware/tools/avr/bin/avr-gcc
-
 DEVICE     = atmega328p
 CLOCK      = 16000000
 PROGRAMMER = #-c stk500v2 -P avrdoper
 
 FUSES      = -U lfuse:w:0xFF:m -U hfuse:w:0xDE:m -U efuse:w:0x05:m # arduino defaults
 
-ARDCOREDIR = /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino
+ARDCOREDIR = /Applications/Arduino.app/Contents/Java/hardware/arduino/avr/cores/arduino/
 
 ARDCORE_SOURCE_CPP = $(filter-out $(ARDCOREDIR)/main.cpp, $(wildcard $(ARDCOREDIR)/*.cpp))
 ARDCORE_SOURCE_C = $(wildcard $(ARDCOREDIR)/*.c)
 ARDCORE_SOURCE_ASM = $(wildcard $(ARDCOREDIR)/*.S)
 
-MY_SOURCE_CPP = main.cpp AccelDriver.cpp
+MY_SOURCE_CPP = main.cpp
 MY_SOURCE_C = # nothing
-INCLUDE_DIR = /Users/timothymcpherson/Documents/arduino/avr/accelerometer/firmware/include
-INCLUDE_SOURCES_CPP := $(shell find $(INCLUDE_DIR) -name '*.cpp')
-INCLUDE_SOURCES_C := $(shell find $(INCLUDE_DIR) -name '*.c')
 
 
-OBJECTS    = $(MY_SOURCE_CPP:.cpp=.o) $(MY_SOURCE_C:.c=.o) $(ARDCORE_SOURCE_CPP:.cpp=.o) $(ARDCORE_SOURCE_C:.c=.o) $(ARDCORE_SOURCE_ASM:.S=.o) $(INCLUDE_SOURCES_CPP:.cpp=.o) $(INCLUDE_SOURCES_C:.c=.o)
+OBJECTS    = $(MY_SOURCE_CPP:.cpp=.o) $(MY_SOURCE_C:.c=.o) $(ARDCORE_SOURCE_CPP:.cpp=.o) $(ARDCORE_SOURCE_C:.c=.o) $(ARDCORE_SOURCE_ASM:.S=.o)
 
 # Tune the lines below only if you know what you are doing:
 
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
-# DARDUINO=100 defines a constant for the arudino version. This is needed in some included files.
-COMPILE = $(COMPILER) -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -I$(ARDCOREDIR) -I$(ARDCOREDIR)/../../variants/standard -I$(INCLUDE_DIR) -Wl,--gc-sections -ffunction-sections -fdata-sections -DARDUINO=100
+COMPILE = avr-gcc -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE) -I$(ARDCOREDIR) -I$(ARDCOREDIR)/../../variants/standard -Wl,--gc-sections -ffunction-sections -fdata-sections
 
 # symbolic targets:
 all:	main.hex

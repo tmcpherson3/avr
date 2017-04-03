@@ -164,7 +164,7 @@ void setup() {
         Wire.begin();
         TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz)
     #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
-        //Fastwire::setup(400, true);
+        Fastwire::setup(400, true);
     #endif
 
     // initialize serial communication
